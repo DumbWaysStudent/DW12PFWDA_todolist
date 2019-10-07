@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { View, StyleSheet, Text, FlatList } from 'react-native';
 
-class MakeList extends Component {
+class Todo extends Component {
     
     constructor() {
         super();
@@ -37,7 +37,7 @@ class MakeList extends Component {
     }
 }
 
-export default MakeList;
+export default Todo;
 
 var styles = StyleSheet.create({
     list : {
