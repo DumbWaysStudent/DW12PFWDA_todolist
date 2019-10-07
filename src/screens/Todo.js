@@ -1,13 +1,32 @@
-import React, {Component} from 'react';
-import { View, StyleSheet, Text, FlatList } from 'react-native';
+import React, { Component } from 'react';
+import {TextInput,FlatList,StyleSheet,} from 'react-native';
+import {Button,View,Text} from 'native-base'
 
-class Todo extends Component {
-    
-    constructor() {
-        super();
+
+class AddTodo extends Component{
+
+    constructor(){
+        super()
         this.state = {
-            valueInput: ''
+            input : '',
+            todo : [
+                {name : 'work'},
+                {name : 'swim'},
+                {name : 'study'},
+                {name : 'sleep'},
+                {name : 'run'}
+            ]
         }
+    }
+    addList=() =>{
+        const newlist = [...this.state.todo, {name : this.state.input}]
+        this.setState({input : '', todo : newlist})
+        alert("Added "+this.state.input + " to To Do List")
+
+    }
+    textinputChecker = (input) => {
+        {input !== '' ? this.addList() : alert("Please fill the form first")} 
+        
     }
 
     renderItem = ({item, index}) => {
@@ -18,26 +37,36 @@ class Todo extends Component {
         )
     }
 
-    render() {
-        const todo = [
-            {name : 'work'},
-            {name : 'swim'},
-            {name : 'study'},
-            {name : 'sleep'},
-            {name : 'run'}
-        ]
-        return (
+    render(){
+        return(
             <View>
+                <View style = {styles.header}>
+                    <TextInput style = {styles.textbox} placeholder = 'New Todo' value={this.state.input} onChangeText= {(text) =>{
+                        this.setState({
+                            input : text
+                        })
+                        }
+                    }
+
+                    
+                    />
+                    <Button style = {styles.button}onPress = {() => this.textinputChecker(this.state.input)}><Text>Add</Text></Button>
+                </View>
                 <FlatList
-                    data={todo}
+                    data={this.state.todo}
                     renderItem={this.renderItem}
-                />   
+                    extraData = {this.state}
+                />
+                
+
             </View>
         )
     }
+
+
 }
 
-export default Todo;
+export default AddTodo;
 
 var styles = StyleSheet.create({
     list : {
@@ -58,7 +87,7 @@ var styles = StyleSheet.create({
         
     },
     button : {
-        padding : 10,
+        padding : 5,
         height : 50
     }
 
