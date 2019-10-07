@@ -35,7 +35,7 @@ class DeleteTodo extends Component{
 
     }
     textinputChecker = (input) => {
-        {input !== '' ? addList() : alert("Please fill the form fiest")} 
+        {input !== '' ? this.addList() : alert("Please fill the form fiest")} 
         
     }
 
@@ -65,7 +65,7 @@ class DeleteTodo extends Component{
                         }
                     }
                     />
-                    <Button style = {styles.button} onPress = {() => this.textinputChecker()}>
+                    <Button style = {styles.button} onPress = {() => this.textinputChecker(this.state.input)}>
                         <Text>Add</Text>
                     </Button>
                 </View>
