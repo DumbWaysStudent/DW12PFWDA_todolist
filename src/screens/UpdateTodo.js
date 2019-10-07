@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
 import {TextInput,FlatList,StyleSheet,} from 'react-native';
-import {Text,View,Button,CheckBox,Icon} from 'native-base';
+import {Button,CheckBox,View,Text,Icon} from 'native-base';
 
-
-
-class TodoisDone extends Component{
-
+class UpdateTodo extends Component{
     constructor(){
-        super()
+        super();
         this.state = {
             input : '',
+            task : 'add',
+            index : 0,
             todo : [
                 {name : 'work', checked : false},
                 {name : 'swim',checked : false},
@@ -19,7 +18,6 @@ class TodoisDone extends Component{
             ]
         }
     }
-
     checkboxPressed = (index)=>{
         const newchecked = [...this.state.todo]
         newchecked[index].checked = !newchecked[index].checked 
@@ -39,56 +37,64 @@ class TodoisDone extends Component{
         alert("Added "+this.state.input + " to To Do List")
 
     }
-    textinputChecker = (input) => {
-        {input !== '' ? this.addList() : alert("Please fill the form first")} 
+    textinputChecker = (input,task) => {
+        {input !== '' && task =='add'? this.addList(): input !=='' && task =='update' ? this.updateList() :alert("Please fill the form first")} 
         
     }
 
-    renderItem = ({item, index}) => {
-        return (
-            <View key={index} style={styles.list}>
+    updateList = ()=> {
+        const newlist = [...this.state.todo]
+        newlist[this.state.index].name = this.state.input
+        this.setState({todo : newlist,task : 'add',input : ''})
+        alert("Updated")
+    }
+
+    updateForm = (index)=>{
+        this.setState({task : 'update', index : index, input : this.state.todo[index].name})
+    }
+
+    renderItem = ({item,index}) =>{
+        return(
+            <View key = {index} style = {styles.list}>
                 <View style = {{flexDirection : 'row', alignItems : 'center'}} >
                 <CheckBox style = {{marginRight : 20}} checked = {item.checked} color = "green" onPress = {() => this.checkboxPressed(index)}/>
 
                 <Text>{item.name}</Text>
                 </View>
+                <View style = {{flexDirection : "row", alignItems : 'center'}}>
+                <Icon style = {styles.updateIcon} onPress = {()=>this.updateForm(index)} name = 'create' ></Icon>
                 <Icon style = {styles.deleteIcon} onPress = {()=>this.remove(index)} name = 'trash' ></Icon>
+                </View>
             </View>
         )
     }
-
     render(){
         return(
             <View>
                 <View style = {styles.header}>
-                    <TextInput style = {styles.textbox} placeholder = 'New Todo' value={this.state.input} onChangeText= {(text) =>{
-                        
+                    <TextInput style = {styles.textbox}value = {this.state.input} placeholder = {this.state.task == 'add'? "New Todo": "Update Todo"} onChangeText = {(text) =>{
                         this.setState({
                             input : text
                         })
-                        }
-                    }
-
+                    }}/>
                     
-                    />
+                    {this.state.task == 'add'? 
                     <Button style = {styles.button} onPress = {()=>this.textinputChecker(this.state.input,this.state.task)}><Text>Add</Text></Button>
+                    :
+                    <Button style = {styles.button} success onPress = {()=>this.textinputChecker(this.state.input,this.state.task)}><Text>Update</Text></Button>
+                    }
                 </View>
                 <FlatList
-                    data={this.state.todo}
-                    renderItem={this.renderItem}
-                    extraData = {this.state}
+                data = {this.state.todo}
+                renderItem = {this.renderItem}
+                extraData = {this.state}
                 />
-                
-
             </View>
         )
     }
-
-
 }
 
-export default TodoisDone;
-
+export default UpdateTodo;
 var styles = StyleSheet.create({
     list : {
         borderBottomWidth : StyleSheet.hairlineWidth,
@@ -108,12 +114,15 @@ var styles = StyleSheet.create({
         
     },
     button : {
-        padding : 10,
+        padding : 5,
         height : 50
     },
     deleteIcon : {
         padding : 5,
         color : 'red'
+    },
+    updateIcon : {
+        padding : 5,
+        color : 'green'
     }
-
 })
