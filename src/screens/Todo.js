@@ -4,7 +4,7 @@ import {Button,View,Text,Icon} from 'native-base';
 
 
 
-class DeleteTodo extends Component{
+class Todo extends Component{
 
     constructor(){
         super()
@@ -83,7 +83,7 @@ class DeleteTodo extends Component{
 
 }
 
-export default DeleteTodo;
+export default Todo;
 
 var styles = StyleSheet.create({
     list : {
