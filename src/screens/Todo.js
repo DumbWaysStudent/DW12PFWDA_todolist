@@ -3,7 +3,7 @@ import {TextInput,FlatList,StyleSheet,} from 'react-native';
 import {Button,View,Text} from 'native-base'
 
 
-class AddTodo extends Component{
+class Todo extends Component{
 
     constructor(){
         super()
@@ -66,7 +66,7 @@ class AddTodo extends Component{
 
 }
 
-export default AddTodo;
+export default Todo;
 
 var styles = StyleSheet.create({
     list : {

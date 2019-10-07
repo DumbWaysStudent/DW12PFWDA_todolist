@@ -4,7 +4,7 @@
 
 import {AppRegistry} from 'react-native';
 import {name as appName} from './app.json';
-import AddTodo from './src/screens/AddTodo';
+import Todo from './src/screens/Todo';
 
-AppRegistry.registerComponent(appName, () => AddTodo);
+AppRegistry.registerComponent(appName, () => Todo);
     
