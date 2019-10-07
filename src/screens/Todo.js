@@ -4,7 +4,7 @@ import {Text,View,Button,CheckBox,Icon} from 'native-base';
 
 
 
-class TodoisDone extends Component{
+class Todo extends Component{
 
     constructor(){
         super()
@@ -87,7 +87,7 @@ class TodoisDone extends Component{
 
 }
 
-export default TodoisDone;
+export default Todo;
 
 var styles = StyleSheet.create({
     list : {
