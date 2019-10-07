@@ -1,25 +1,30 @@
 import React, { Component } from 'react';
 import {TextInput,FlatList,StyleSheet,} from 'react-native';
-import {Button,View,Text,Icon} from 'native-base';
+import {Text,View,Button,CheckBox,Icon} from 'native-base';
 
 
 
-class DeleteTodo extends Component{
+class TodoisDone extends Component{
 
     constructor(){
         super()
         this.state = {
             input : '',
             todo : [
-                {name : 'work'},
-                {name : 'swim'},
-                {name : 'study'},
-                {name : 'sleep'},
-                {name : 'run'}
+                {name : 'work', checked : false},
+                {name : 'swim',checked : false},
+                {name : 'study',checked : false},
+                {name : 'sleep',checked : false},
+                {name : 'run',checked : false}
             ]
         }
     }
 
+    checkboxPressed = (index)=>{
+        const newchecked = [...this.state.todo]
+        newchecked[index].checked = !newchecked[index].checked 
+        this.setState({todo : newchecked})
+    }
 
     remove = (index) =>{
         const newlist = [...this.state.todo]
@@ -35,23 +40,22 @@ class DeleteTodo extends Component{
 
     }
     textinputChecker = (input) => {
-        {input !== '' ? addList() : alert("Please fill the form fiest")} 
+        {input !== '' ? this.addList() : alert("Please fill the form first")} 
         
     }
-
 
     renderItem = ({item, index}) => {
         return (
             <View key={index} style={styles.list}>
-                <View style = {{flexDirection : 'row', alignItems : 'center'}}>
+                <View style = {{flexDirection : 'row', alignItems : 'center'}} >
+                <CheckBox style = {{marginRight : 20}} checked = {item.checked} color = "green" onPress = {() => this.checkboxPressed(index)}/>
+
                 <Text>{item.name}</Text>
                 </View>
                 <Icon style = {styles.deleteIcon} onPress = {()=>this.remove(index)} name = 'trash' ></Icon>
             </View>
         )
     }
-
-
 
     render(){
         return(
@@ -64,10 +68,10 @@ class DeleteTodo extends Component{
                         })
                         }
                     }
+
+                    
                     />
-                    <Button style = {styles.button} onPress = {() => this.textinputChecker()}>
-                        <Text>Add</Text>
-                    </Button>
+                    <Button style = {styles.button} onPress = {()=>this.textinputChecker(this.state.input,this.state.task)}><Text>Add</Text></Button>
                 </View>
                 <FlatList
                     data={this.state.todo}
@@ -83,7 +87,7 @@ class DeleteTodo extends Component{
 
 }
 
-export default DeleteTodo;
+export default TodoisDone;
 
 var styles = StyleSheet.create({
     list : {
@@ -104,7 +108,7 @@ var styles = StyleSheet.create({
         
     },
     button : {
-        padding : 5,
+        padding : 10,
         height : 50
     },
     deleteIcon : {
