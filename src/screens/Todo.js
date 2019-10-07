@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {TextInput,FlatList,StyleSheet,} from 'react-native';
 import {Button,CheckBox,View,Text,Icon} from 'native-base';
 
-class UpdateTodo extends Component{
+class Todo extends Component{
     constructor(){
         super();
         this.state = {
@@ -94,7 +94,7 @@ class UpdateTodo extends Component{
     }
 }
 
-export default UpdateTodo;
+export default Todo;
 var styles = StyleSheet.create({
     list : {
         borderBottomWidth : StyleSheet.hairlineWidth,
