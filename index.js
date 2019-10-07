@@ -4,7 +4,7 @@
 
 import {AppRegistry} from 'react-native';
 import {name as appName} from './app.json';
-import MakeList from './src/screens/MakeList';
+import DeleteTodo from './src/screens/DeleteTodo';
 
-AppRegistry.registerComponent(appName, () => MakeList);
+AppRegistry.registerComponent(appName, () => DeleteTodo);
     
